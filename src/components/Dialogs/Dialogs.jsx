@@ -1,9 +1,9 @@
 import React from 'react';
 import cl from './Dialogs.module.css';
 
-const Dialogs = (props) =>{
+const Dialogs = (props) => {
     return (
-    <div>
+        <div>
             Dialogs
         </div>
     )

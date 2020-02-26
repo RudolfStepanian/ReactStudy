@@ -6,7 +6,7 @@ const Profile = () => {
     return (
         <div>
             <div>
-                <img height='500px' width='600px' src='https://c8.alamy.com/comp/AXBEXR/stock-photograph-of-a-asian-teen-with-a-trumpet-to-her-ear-AXBEXR.jpg' />
+                <img height='400px' width='500px' src='https://c8.alamy.com/comp/AXBEXR/stock-photograph-of-a-asian-teen-with-a-trumpet-to-her-ear-AXBEXR.jpg' />
             </div>
             <div>
                 ava + desc
