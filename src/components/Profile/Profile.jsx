@@ -1,5 +1,6 @@
 import React from 'react';
 import cl from './Profile.module.css';
+import MyPosts from './MyPosts/MyPosts.jsx';
 
 const Profile = () => {
     return (
@@ -9,23 +10,8 @@ const Profile = () => {
             </div>
             <div>
                 ava + desc
-        </div>
-            <div>
-                <div>
-                    posts
             </div>
-                <div>
-                    new post
-            </div>
-            <div className={cl.posts}>
-                <div className={cl.item}>
-                    post 1
-                </div>
-                <div className={cl.item}>
-                    post 2
-                </div>
-                </div>
-            </div>
+            <MyPosts />
         </div>
     );
 }
