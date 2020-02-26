@@ -13,11 +13,11 @@ const MyPosts = () => {
                 <button>Add post</button>
             </div>
             <div className={cl.posts}>
-                <Post message='11111111111'/>
-                <Post message='44654654654'/>
+                <Post message='11111111111' likeCount='6'/>
+                <Post message='44654654654' likeCount='0'/>
             </div>
         </div>
     );
-}
+};
 
 export default MyPosts;

@@ -4,14 +4,15 @@ import Header from './components/Header/Header.jsx'
 import Nav from './components/Nav/Nav.jsx';
 import Profile from './components/Profile/Profile.jsx';
 
-const App = () => {
+const App = (props) => {
   return (
     <div className='app-wrapper'>
-      <Header />
-      <Nav />      
-      <Profile />
+        <Header />
+        <Nav />
+        <Profile />
+        <Dialogs />
     </div>
   );
-}
+};
 
 export default App;
