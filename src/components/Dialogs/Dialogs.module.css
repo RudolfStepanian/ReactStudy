@@ -12,12 +12,13 @@
 }
 
 .dialog a{
-    color: black;
+    color: white;
     text-decoration: none;
 }
 
 .messages{
     padding: 10px;
+    color: white;
 }
 
 .messages.message{
