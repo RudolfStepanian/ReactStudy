@@ -1,0 +1,19 @@
+.friendBlock {
+    display: grid;
+    /*grid-template-rows: 60px 1fr;*/
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.friendIco{
+    padding: 1px;
+}
+
+.friendIco img {
+    height: 50px;
+    width: 50px;
+    border-radius: 30px;
+}
+
+.friendIco h6 {
+    margin: 0;
+}
