@@ -7,11 +7,11 @@ import DialogItem from "./DialogItem/DialogItem";
 const Dialogs = (props) => {
 
     let dialogElement =
-        props.dialogs.map((el) =>{
+        props.state.dialogs.map((el) =>{
             return <DialogItem name={el.name} id={el.id}/>
         });
 
-    let messageElement = props.messages
+    let messageElement = props.state.messages
         .map( el => <Message message={el.message}/>)
 
     return (
