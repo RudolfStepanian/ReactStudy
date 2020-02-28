@@ -29,7 +29,11 @@ let postsData = [
     {id: 2, message: "it's my new post", likeCount: 15 }
 ];
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App
+    messages={messagesData}
+    dialogs={dialogsData}
+    posts={postsData} />,
+    document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
