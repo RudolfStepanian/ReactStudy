@@ -18,12 +18,11 @@ const App = (props) => {
                                state={props.state.messagesPage}/>}/>
                     <Route path="/profile"
                            render={() => <Profile
-                               state={props.state.profilePage}/>}/>
+                               state={props.state.profilePage}
+                               addPost={props.addPost} />} />
                     <Route path="/News" component={Profile}/>
                     <Route path="/Music" component={Profile}/>
                     <Route path="/Settings" component={Profile}/>
-                    {/*<Profile />*/}
-                    {/*<Dialogs />*/}
                 </div>
             </div>
         </BrowserRouter>
