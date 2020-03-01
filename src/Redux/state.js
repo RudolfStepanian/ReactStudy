@@ -1,8 +1,5 @@
-let rerenderEntireTree = () => {
-    console.log('state-changed');
-};
-
-let state = {
+let store = {
+    _state: {
         profilePage: {
             posts: [
                 {id: 1, message: 'hi how are you?', likeCount: 12},
@@ -10,7 +7,7 @@ let state = {
                 {id: 2, message: "it's my second post", likeCount: 3},
                 {id: 2, message: "it's my new post", likeCount: 15}
             ],
-            newPostText: 'blabla'
+            newPostText: 'new post text'
         },
         messagesPage: {
             messages: [
@@ -48,26 +45,32 @@ let state = {
                 {name: 'stop it', ava: 'https://www.kiplinger.com/kipimages/pages/18048.jpg'}
             ]
         }
-    };
-
-export const addPost = () => {
-    let newPost = {
-        id: 5,
-        message: state.profilePage.newPostText,
-        likeCount: 0
-    };
-    state.profilePage.posts.push(newPost);
-    state.profilePage.newPostText = '';
-    rerenderEntireTree(state);
+    },
+    getState(){
+        return this._state;
+    },
+    _callSubscriber(){
+        console.log('state-changed');
+    },
+    addPost(){
+        let newPost = {
+            id: 5,
+            message: this._state.profilePage.newPostText,
+            likeCount: 0
+        };
+        this._state.profilePage.posts.push(newPost);
+        this._state.profilePage.newPostText = '';
+        this._callSubscriber(this._state);
+    },
+    updateNewPostText(newText){
+        debugger;
+        this._state.profilePage.newPostText = newText;
+        this._callSubscriber(this._state);
+    },
+    subscribe(observer){
+        this._callSubscriber = observer;
+    }
 };
 
-export const updateNewPostText = (newText) => {
-    state.profilePage.newPostText = newText;
-    rerenderEntireTree(state);
-};
-
-export const subscribe = (observer) => {
-
-};
-
-export default state;
+export default store;
+window.store = store;
