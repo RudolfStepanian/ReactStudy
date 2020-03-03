@@ -3,8 +3,20 @@ import cl from './Dialogs.module.css';
 import {NavLink} from "react-router-dom";
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
+import {addMessageActionCreate, updateNewMessageTextActionCreator} from "../../Redux/state";
 
 const Dialogs = (props) => {
+
+    let newMessage = React.createRef();
+
+    let changeMessageText = () =>{
+        let text = newMessage.current.value;
+        props.dispatch(updateNewMessageTextActionCreator(text))
+    };
+
+    let sendMessage = () =>{
+        props.dispatch(addMessageActionCreate());
+    };
 
     let dialogElement =
         props.state.dialogs.map((el) =>{
@@ -14,10 +26,7 @@ const Dialogs = (props) => {
     let messageElement = props.state.messages
         .map( el => <Message message={el.message}/>)
 
-    let newMessage = React.createRef();
-    let sendMessage = () =>{
-        let message = newMessage.current.value;
-    };
+
 
     return (
         <div className={cl.dialogs}>
@@ -25,9 +34,17 @@ const Dialogs = (props) => {
                 {dialogElement}
             </div>
             <div className={cl.messages}>
-                {messageElement}
-                <textarea ref={ newMessage }></textarea>
-                <button onClick={ sendMessage }>send message</button>
+                <div>{messageElement}</div>
+                <div>
+                    <textarea
+                    ref={newMessage}
+                    value={props.state.newMessageText}
+                    onChange={changeMessageText}
+                />
+                </div>
+                <div>
+                    <button onClick={sendMessage}>send message</button>
+                </div>
             </div>
         </div>
     )

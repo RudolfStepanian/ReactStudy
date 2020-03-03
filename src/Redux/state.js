@@ -1,3 +1,9 @@
+let ADD_POST = 'ADD-POST';
+let UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+let ADD_MESSAGE = 'ADD-MESSAGE';
+let UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
+
+
 let store = {
     _state: {
         profilePage: {
@@ -25,7 +31,8 @@ let store = {
                 {id: 4, name: 'Sa'},
                 {id: 5, name: 'Vi'},
                 {id: 6, name: 'Va'},
-            ]
+            ],
+            newMessageText: ''
         },
         sidebar: {
             friends: [
@@ -46,31 +53,65 @@ let store = {
             ]
         }
     },
-    getState(){
-        return this._state;
-    },
-    _callSubscriber(){
+    _callSubscriber() {
         console.log('state-changed');
     },
-    addPost(){
-        let newPost = {
-            id: 5,
-            message: this._state.profilePage.newPostText,
-            likeCount: 0
-        };
-        this._state.profilePage.posts.push(newPost);
-        this._state.profilePage.newPostText = '';
-        this._callSubscriber(this._state);
+
+    getState() {
+        return this._state;
     },
-    updateNewPostText(newText){
-        debugger;
-        this._state.profilePage.newPostText = newText;
-        this._callSubscriber(this._state);
-    },
-    subscribe(observer){
+    subscribe(observer) {
         this._callSubscriber = observer;
-    }
+    },
+
+    dispatch(action) {
+        if (action.type === ADD_POST) {
+            let newPost = {
+                id: 5,
+                message: this._state.profilePage.newPostText,
+                likeCount: 0
+            };
+            this._state.profilePage.posts.push(newPost);
+            this._state.profilePage.newPostText = '';
+            this._callSubscriber(this._state);
+        } else if (action.type === UPDATE_NEW_POST_TEXT) {
+            this._state.profilePage.newPostText = action.newText;
+            this._callSubscriber(this._state);
+        } else if (action.type === ADD_MESSAGE) {
+            let newMessage = {
+                id: 100 * Math.random(),
+                message: this._state.messagesPage.newMessageText
+            };
+            this._state.messagesPage.messages.push(newMessage);
+            this._state.messagesPage.newMessageText = '';
+            this._callSubscriber(this._state);
+        } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
+            this._state.messagesPage.newMessageText = action.newText;
+            this._callSubscriber(this._state);
+        }
+    },
 };
+
+export let addPostActionCreator = () => ({type: ADD_POST});
+export let updateNewPostTextActionCreator = (text) => ({type: UPDATE_NEW_POST_TEXT, newText: text});
+export let addMessageActionCreate = () => ({type: ADD_MESSAGE});
+export let updateNewMessageTextActionCreator = (text) => ({type: UPDATE_NEW_MESSAGE_TEXT, newText: text});
 
 export default store;
 window.store = store;
+
+
+// addPost(){
+//     let newPost = {
+//         id: 5,
+//         message: this._state.profilePage.newPostText,
+//         likeCount: 0
+//     };
+//     this._state.profilePage.posts.push(newPost);
+//     this._state.profilePage.newPostText = '';
+//     this._callSubscriber(this._state);
+// },
+// updateNewPostText(newText){
+//     this._state.profilePage.newPostText = newText;
+//     this._callSubscriber(this._state);
+// },

@@ -14,12 +14,12 @@ const App = (props) => {
             <div className='app-wrapper-content'>
                 <Route path="/dialogs"
                        render={() => <Dialogs
-                           state={props.state.messagesPage}/>}/>
+                           state={props.state.messagesPage}
+                           dispatch={props.dispatch}/>}/>
                 <Route path="/profile"
                        render={() => <Profile
                            profilePage={props.state.profilePage}
-                           updateNewPostText={props.updateNewPostText}
-                           addPost={props.addPost}/>}/>
+                           dispatch={props.dispatch}/>}/>
                 <Route path="/News" component={Profile}/>
                 <Route path="/Music" component={Profile}/>
                 <Route path="/Settings" component={Profile}/>
