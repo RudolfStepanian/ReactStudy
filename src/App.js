@@ -10,11 +10,11 @@ const App = (props) => {
     return (
         <div className='app-wrapper'>
             <Header/>
-            <Nav state={props.state.sidebar}/>
+            <Nav state={props.state.sidebarPage}/>
             <div className='app-wrapper-content'>
                 <Route path="/dialogs"
                        render={() => <Dialogs
-                           state={props.state.messagesPage}
+                           state={props.state.dialogsPage}
                            dispatch={props.dispatch}/>}/>
                 <Route path="/profile"
                        render={() => <Profile

@@ -4,7 +4,6 @@ import Friends from "./Friends/Friends";
 import {NavLink} from "react-router-dom";
 
 const Nav = (props) => {
-
     return <nav className={cl.nav}>
         <div className={cl.item}>
             <NavLink to="/profile" activeClassName={cl.activeLink}>Profile</NavLink>
