@@ -5,6 +5,7 @@ import Nav from './components/Nav/Nav.jsx';
 import Profile from './components/Profile/Profile.jsx';
 import Dialogs from "./components/Dialogs/Dialogs";
 import {Route} from "react-router-dom";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 const App = (props) => {
     return (
@@ -13,12 +14,12 @@ const App = (props) => {
             <Nav state={props.state.sidebarPage}/>
             <div className='app-wrapper-content'>
                 <Route path="/dialogs"
-                       render={() => <Dialogs
-                           state={props.state.dialogsPage}
+                       render={() => <DialogsContainer
+                           store={props.store}
                            dispatch={props.dispatch}/>}/>
                 <Route path="/profile"
                        render={() => <Profile
-                           profilePage={props.state.profilePage}
+                           store={props.store}
                            dispatch={props.dispatch}/>}/>
                 <Route path="/News" component={Profile}/>
                 <Route path="/Music" component={Profile}/>
