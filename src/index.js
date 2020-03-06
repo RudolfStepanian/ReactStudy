@@ -9,10 +9,11 @@ import store from './Redux/redux-store.js'
 import {Provider} from "react-redux";
 // import StoreContext, {Provider} from "./StoreContext";
 
+let abcd = 55;
 
 ReactDOM.render(
     <BrowserRouter>
-        <Provider store={store}>
+        <Provider store={store} abcd={abcd}>
             <App store={store}/>
         </Provider>
     </BrowserRouter>,
