@@ -6,24 +6,24 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import store from './Redux/redux-store.js'
-import StoreContext, {Provider} from "./StoreContext";
+import {Provider} from "react-redux";
+// import StoreContext, {Provider} from "./StoreContext";
 
 
-let rerenderEntireTree = (state) => {
-    ReactDOM.render(
-        <BrowserRouter>
-            <Provider store={store}>
-                <App store={store}/>
-            </Provider>
-        </BrowserRouter>,
-        document.getElementById('root'));
-};
-rerenderEntireTree(store.getState());
+ReactDOM.render(
+    <BrowserRouter>
+        <Provider store={store}>
+            <App store={store}/>
+        </Provider>
+    </BrowserRouter>,
+    document.getElementById('root'));
 
-store.subscribe(() => {
-    let state = store.getState();
-    rerenderEntireTree(state);
-});
+
+
+// rerenderEntireTree();
+// store.subscribe(() => {
+//     rerenderEntireTree();
+// });
 
 
 serviceWorker.unregister();
