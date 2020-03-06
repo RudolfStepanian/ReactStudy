@@ -25,5 +25,4 @@ ReactDOM.render(
 //     rerenderEntireTree();
 // });
 
-
 serviceWorker.unregister();

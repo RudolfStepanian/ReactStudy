@@ -48,17 +48,11 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
     return{
-        // onNewMessageChange : () => {
-        //     dispatch(addMessageActionCreate());
-        // },
-        // onSendMessageClick : (text) => {
-        //     dispatch(updateNewMessageTextActionCreator(text))
-        // }
-        onNewMessageChange : () => {
-            dispatch(updateNewMessageTextActionCreator());
+        onNewMessageChange : (text) => {
+            dispatch(updateNewMessageTextActionCreator(text));
         },
-        onSendMessageClick : (text) => {
-            dispatch(addMessageActionCreate(text))
+        onSendMessageClick : () => {
+            dispatch(addMessageActionCreate())
         }
     }
 };
