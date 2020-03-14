@@ -7,7 +7,6 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import store from './Redux/redux-store.js'
 import {Provider} from "react-redux";
-// import StoreContext, {Provider} from "./StoreContext";
 
 let abcd = 55;
 
