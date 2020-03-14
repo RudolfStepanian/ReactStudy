@@ -4,6 +4,11 @@ import Post from './Post/Post';
 import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../Redux/profile-reducer";
 
 class MyPosts extends React.Component {
+    constructor(props) {
+        debugger;
+        super(props);
+    }
+
     newPostElement = React.createRef();
 
     postElements = this.props.posts

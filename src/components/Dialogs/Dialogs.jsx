@@ -5,38 +5,39 @@ import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
 import {addMessageActionCreate, updateNewMessageTextActionCreator} from "../../Redux/dialogs-reducer";
 
-const Dialogs = (props) => {
-    let dialogElements = props.dialogsPage.dialogs.map(d => <DialogItem name={d.name} key={d.id} id={d.id}/>);
-    let messageElement = props.dialogsPage.messages.map( el => <Message message={el.message} key={el.id}/>)
-    let newMessageBody = props.dialogsPage.newMessageBody;
+class Dialogs extends React.Component{
+    dialogElements = this.props.dialogsPage.dialogs.map(d => <DialogItem name={d.name} key={d.id} id={d.id}/>);
+    messageElement = this.props.dialogsPage.messages.map( el => <Message message={el.message} key={el.id}/>)
+    newMessageBody = this.props.dialogsPage.newMessageBody;
 
-    let onSendMessageClick = () =>{
-        props.onSendMessageClick();
+    onSendMessageClick = () =>{
+        this.props.onSendMessageClick();
+        this.render();
     };
 
-    let onNewMessageChange = (e) =>{
-        props.onNewMessageChange(e.target.value)
+    onNewMessageChange = (e) =>{
+        this.props.onNewMessageChange(e.target.value)
     };
 
-    return (
-        <div className={cl.dialogs}>
+    render() {
+        return <div className={cl.dialogs}>
             <div className={cl.dialogsItem}>
-                {dialogElements}
+                {this.dialogElements}
             </div>
             <div className={cl.messages}>
-                <div>{messageElement}</div>
+                <div>{this.messageElement}</div>
                 <div>
                     <textarea
-                    ref={newMessageBody}
-                    value={props.dialogsPage.newMessageText}
-                    onChange={onNewMessageChange}/>
+                        ref={this.newMessageBody}
+                        value={this.props.dialogsPage.newMessageText}
+                        onChange={this.onNewMessageChange}/>
                 </div>
                 <div>
-                    <button onClick={onSendMessageClick}>send message</button>
+                    <button onClick={this.onSendMessageClick}>send message</button>
                 </div>
             </div>
         </div>
-    )
+    }
 };
 
 export default Dialogs;

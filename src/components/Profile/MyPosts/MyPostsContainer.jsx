@@ -3,7 +3,7 @@ import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../Red
 import MyPosts from "./MyPosts.jsx";
 import {addMessageActionCreate, updateNewMessageTextActionCreator} from "../../../Redux/dialogs-reducer";
 import {connect} from "react-redux";
-import Dialogs from "../../Dialogs/Dialogs";
+import Dialogs from "../../Dialogs/DialogsComponent";
 
 // const MyPostsContainer = (props) => {
 //     // let state =props.store.getState();
