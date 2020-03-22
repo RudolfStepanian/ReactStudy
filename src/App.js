@@ -2,10 +2,10 @@ import React from 'react';
 import './App.css';
 import Header from './components/Header/Header.jsx'
 import Nav from './components/Nav/Nav.jsx';
-import Profile from './components/Profile/Profile.jsx';
 import {Route} from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 
 const App = (props) => {
     return (
@@ -15,12 +15,12 @@ const App = (props) => {
             <div className='app-wrapper-content'>
                 <Route path="/dialogs"
                        render={() => <DialogsContainer /*store={props.store}*/ />}/>
-                <Route path="/profile"
-                       render={() => <Profile /*store={props.store}*/ />}/>
+                <Route path="/profile/:userId?"
+                       render={() => <ProfileContainer /*store={props.store}*/ />}/>
                 <Route path="/Users"
                        render={() => <UsersContainer/>}/>
-                <Route path="/Music" component={Profile}/>
-                <Route path="/Settings" component={Profile}/>
+                <Route path="/Music"/>
+                <Route path="/Settings"/>
             </div>
         </div>
     );

@@ -5,7 +5,6 @@ import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../Red
 
 class MyPosts extends React.Component {
     constructor(props) {
-        debugger;
         super(props);
     }
 
@@ -19,7 +18,6 @@ class MyPosts extends React.Component {
         this.props.onPostChange(text);
     };
     onAddPost() {
-        debugger;
         this.props.addPost();
         this.postElements = this.props.posts
             .map(e => <Post message={e.message} likeCount={e.likeCount}/>);
