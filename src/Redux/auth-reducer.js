@@ -33,6 +33,7 @@ const usersReducer = (state = initialState, action) => {
                         return {...u, followed: false}
                     }
                     return u;
+
                 }),
             };
         case SET_CURRENT_PAGE:
