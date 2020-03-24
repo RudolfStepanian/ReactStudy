@@ -29,22 +29,10 @@ let Users = (props) => {
                     <div>
                         {u.followed
                             ? <button disabled={props.followingInProgress.some(id => id == u.id)} onClick={() => {
-                                props.toggleIsFollowingProgress(true, u.id)
-                                usersAPI.unFollow(u.id).then(data => {
-                                        if (data.resultCode == 0){
-                                            props.unfollow(u.id);
-                                        }
-                                    props.toggleIsFollowingProgress(false, u.id)
-                                    });
+                                props.unfollow(u.id);
                             }}>unfollow</button>
                             : <button disabled={props.followingInProgress.some(id => id == u.id)} onClick={() => {
-                                props.toggleIsFollowingProgress(true, u.id)
-                                usersAPI.follow(u.id).then(data => {
-                                        if (data.resultCode == 0){
-                                            props.follow(u.id);
-                                        }
-                                    props.toggleIsFollowingProgress(false, u.id)
-                                    });
+                                props.follow(u.id);
                             }}>follow</button>}
                     </div>
                 </span>
@@ -52,9 +40,6 @@ let Users = (props) => {
                     <span>
                         <div>{u.name}</div><div>{u.status}</div>
                     </span>
-                {/*<span>*/}
-                {/*<div>"{u.location.city}"</div><div>"{u.location.country}"</div>*/}
-                {/*</span>*/}
                 </span>
         </div>)}
     </div>
