@@ -1,48 +1,63 @@
 import React from 'react';
 import cl from './Dialogs.module.css';
-import {NavLink} from "react-router-dom";
+import {NavLink, Redirect} from "react-router-dom";
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
 import {addMessageActionCreate, updateNewMessageTextActionCreator} from "../../Redux/dialogs-reducer";
-import Dialogs from "./Dialogs";
+// import Dialogs from "./DialogsComponent";
 import {connect} from "react-redux";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
-// const DialogsContainer = (props) => {
-//
-//     // let onSendMessageClick = () =>{
-//     //     props.store.dispatch(addMessageActionCreate());
-//     // };
-//     //
-//     // let onNewMessageChange = (e) =>{
-//     //     props.store.dispatch(updateNewMessageTextActionCreator(text))
-//     // };
-//     //
-//     // return <Dialogs onSendMessageClick={onSendMessageClick}
-//     //                 onNewMessageChange={onNewMessageChange}
-//     //                 dialogsPage={props.store.getState().dialogsPage}/>;
-//
-//     return <StoreContext.Consumer>
-//         {
-//             (store) => {
-//                 let onSendMessageClick = () => {
-//                     store.dispatch(addMessageActionCreate());
-//                 };
-//
-//                 let onNewMessageChange = (text) => {
-//                     // let text = e.target.value;
-//                     store.dispatch(updateNewMessageTextActionCreator(text))
-//                 };
-//                 return <Dialogs onSendMessageClick={onSendMessageClick}
-//                                 onNewMessageChange={onNewMessageChange}
-//                                 dialogsPage={props.store.getState().dialogsPage}/>
-//             }
-//         }
-//     </StoreContext.Consumer>
-// };
+class Dialogs extends React.Component{
+    dialogElements = this.props.dialogsPage.dialogs.map(d => <DialogItem name={d.name} key={d.id} id={d.id}/>);
+    messageElement = this.props.dialogsPage.messages.map( el => <Message message={el.message} key={el.id}/>)
+    newMessageBody = this.props.dialogsPage.newMessageBody;
+
+    onSendMessageClick = () =>{
+        this.props.onSendMessageClick();
+        this.render();
+    };
+
+    onNewMessageChange = (e) =>{
+        this.props.onNewMessageChange(e.target.value)
+    };
+
+
+    render() {
+        if(this.props.isAuth == false) return <Redirect to={'/login'}/>;
+        return <div className={cl.dialogs}>
+            <div className={cl.dialogsItem}>
+                {this.dialogElements}
+            </div>
+            <div className={cl.messages}>
+                <div>{this.messageElement}</div>
+                <div>
+                    <textarea
+                        ref={this.newMessageBody}
+                        value={this.props.dialogsPage.newMessageText}
+                        onChange={this.onNewMessageChange}/>
+                </div>
+                <div>
+                    <button onClick={this.onSendMessageClick}>send message</button>
+                </div>
+            </div>
+        </div>
+    }
+};
+
+// compose(
+//     connect(mapStateToProps,mapDispatchToProps),
+//     withAuthRedirect
+// )(Dialogs);
+
+
+let AuthRedirectComponent = withAuthRedirect(Dialogs);
 
 let mapStateToProps = (state) => {
     return{
-        dialogsPage: state.dialogsPage
+        dialogsPage: state.dialogsPage,
+        isAuth: state.auth.isAuth
     }
 };
 
@@ -57,6 +72,9 @@ let mapDispatchToProps = (dispatch) => {
     }
 };
 
-const DialogsContainer = connect(mapStateToProps,mapDispatchToProps)(Dialogs);
+const DialogsContainer = connect(mapStateToProps,mapDispatchToProps)(AuthRedirectComponent);
 
-export default DialogsContainer;
+export default compose(
+    connect(mapStateToProps,mapDispatchToProps),
+    withAuthRedirect
+)(Dialogs);;
