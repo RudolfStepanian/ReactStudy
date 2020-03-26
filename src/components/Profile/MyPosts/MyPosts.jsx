@@ -24,7 +24,8 @@ class MyPosts extends React.Component {
     };
 
     render() {
-        return (<div className={cl.postsBlock}>
+        return (
+            <div className={cl.postsBlock}>
                 <h3>My posts</h3>
                 <div>
                     <div>

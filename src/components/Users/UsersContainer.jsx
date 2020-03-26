@@ -17,7 +17,7 @@ class UsersAPIComponent extends React.Component {
 
     render() {
         if(this.props.isAuth === false) return <Redirect to={'/login'}/>;
-        return <>
+        return (<>
             {this.props.isFetching ? <Preloader/> : null}
             <Users totalUsersCount={this.props.totalUsersCount}
                    pageSize={this.props.pageSize}
@@ -29,7 +29,7 @@ class UsersAPIComponent extends React.Component {
                    toggleIsFollowingProgress={this.props.toggleIsFollowingProgress}
                    followingInProgress={this.props.followingInProgress}
             />
-        </>
+        </>)
     };
 }
 

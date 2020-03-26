@@ -26,7 +26,8 @@ class Dialogs extends React.Component{
 
     render() {
         if(this.props.isAuth == false) return <Redirect to={'/login'}/>;
-        return <div className={cl.dialogs}>
+        return (
+            <div className={cl.dialogs}>
             <div className={cl.dialogsItem}>
                 {this.dialogElements}
             </div>
@@ -43,6 +44,7 @@ class Dialogs extends React.Component{
                 </div>
             </div>
         </div>
+        )
     }
 };
 
