@@ -2,49 +2,58 @@ import React from 'react';
 import cl from './MyPosts.module.css';
 import Post from './Post/Post';
 import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../Redux/profile-reducer";
+import {Field, reduxForm} from "redux-form";
 
-class MyPosts extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+const MyPosts = (props) => {
 
-    newPostElement = React.createRef();
+    let newPostElement = React.createRef();
 
-    postElements = this.props.posts
+    let postElements = props.posts
         .map(e => <Post message={e.message} likeCount={e.likeCount}/>);
 
-    onPostChange() {
-        let text = this.newPostElement.current.value;
-        this.props.onPostChange(text);
+    let onPostChange = () => {
+        let text = newPostElement.current.value;
+        props.onPostChange(text);
     };
-    onAddPost() {
-        this.props.addPost();
-        this.postElements = this.props.posts
+    let onAddPost = () => {
+        props.addPost();
+        postElements = props.posts
             .map(e => <Post message={e.message} likeCount={e.likeCount}/>);
     };
 
-    render() {
-        return (
-            <div className={cl.postsBlock}>
-                <h3>My posts</h3>
-                <div>
-                    <div>
-                    <textarea
-                        ref={this.newPostElement}
-                        onChange={this.onPostChange}
-                        value={this.props.newPostText}
-                    />
-                    </div>
-                    <div>
-                        <button onClick={this.onAddPost}>Add post</button>
-                    </div>
-                </div>
-                <div className={cl.posts}>
-                    {this.postElements}
-                </div>
+    let addPost = (values) =>{
+        props.addPost(values.newPostBody)
+    };
+
+    return (<div className={cl.postsBlock}>
+            <h3>My posts</h3>
+            <div>
+                <PostReduxForm onSubmit={addPost}/>
             </div>
-        );
-    }
-}
+            <div className={cl.posts}>
+                {postElements}
+            </div>
+        </div>
+    );
+};
+
+
+const PostForm = (props) => {
+    return <form onSubmit={props.handleSubmit}>
+        <Field validate={[required]} component={'textarea'} name={'newPostBody'} placeholder='New post'/>
+        {/*<Field >*/}
+        {/*            <textarea*/}
+        {/*                ref={props.newPostElement}*/}
+        {/*                onChange={props.onPostChange}*/}
+        {/*                value={props.newPostText}*/}
+        {/*            />*/}
+        {/*</Field>*/}
+        <div>
+            <button>Add post</button>
+        </div>
+    </form>
+};
+
+const PostReduxForm = reduxForm({form: 'post'})(PostForm);
 
 export default MyPosts;

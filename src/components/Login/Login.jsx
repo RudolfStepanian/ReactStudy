@@ -4,7 +4,7 @@ import {Field, reduxForm} from "redux-form";
 const Login = (props) => {
     const onSubmit = (formData) =>{
         console.log(formData);
-    }
+    };
 
     return <div>
         <h1>Login</h1>

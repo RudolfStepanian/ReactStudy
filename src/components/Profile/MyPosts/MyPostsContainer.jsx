@@ -2,6 +2,7 @@ import React from 'react';
 import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../Redux/profile-reducer";
 import MyPosts from "./MyPosts.jsx";
 import {connect} from "react-redux";
+import {Field, reduxForm} from "redux-form";
 
 let mapStateToProps = (state) => {
     return{
@@ -12,11 +13,8 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
     return{
-        addPost : () => {
-            dispatch(addPostActionCreator());
-        },
-        onPostChange : (text) => {
-            dispatch(updateNewPostTextActionCreator(text));
+        addPost : (newPostBody) => {
+            dispatch(addPostActionCreator(newPostBody));
         }
     }
 };

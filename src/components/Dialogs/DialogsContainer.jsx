@@ -3,80 +3,77 @@ import cl from './Dialogs.module.css';
 import {NavLink, Redirect} from "react-router-dom";
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
-import {addMessageActionCreate, updateNewMessageTextActionCreator} from "../../Redux/dialogs-reducer";
-// import Dialogs from "./DialogsComponent";
+import {addMessageActionCreate} from "../../Redux/dialogs-reducer";
 import {connect} from "react-redux";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
+import {Field, reduxForm} from "redux-form";
 
-class Dialogs extends React.Component{
-    dialogElements = this.props.dialogsPage.dialogs.map(d => <DialogItem name={d.name} key={d.id} id={d.id}/>);
-    messageElement = this.props.dialogsPage.messages.map( el => <Message message={el.message} key={el.id}/>)
-    newMessageBody = this.props.dialogsPage.newMessageBody;
+const Dialogs = (props) => {
+    let dialogElements = props.dialogsPage.dialogs.map(d => <DialogItem name={d.name} key={d.id} id={d.id}/>);
+    let messageElement = props.dialogsPage.messages.map(el => <Message message={el.message} key={el.id}/>)
+    let newMessageBody = props.dialogsPage.newMessageBody;
 
-    onSendMessageClick = () =>{
-        this.props.onSendMessageClick();
-        this.render();
+    let addNewMessage = (values) => {
+        props.onSendMessageClick(values.newMessageBody)
     };
 
-    onNewMessageChange = (e) =>{
-        this.props.onNewMessageChange(e.target.value)
-    };
-
-
-    render() {
-        if(this.props.isAuth == false) return <Redirect to={'/login'}/>;
-        return (
-            <div className={cl.dialogs}>
+    if (props.isAuth == false) return <Redirect to={'/login'}/>;
+    return (
+        <div className={cl.dialogs}>
             <div className={cl.dialogsItem}>
-                {this.dialogElements}
+                {dialogElements}
             </div>
             <div className={cl.messages}>
-                <div>{this.messageElement}</div>
-                <div>
-                    <textarea
-                        ref={this.newMessageBody}
-                        value={this.props.dialogsPage.newMessageText}
-                        onChange={this.onNewMessageChange}/>
-                </div>
-                <div>
-                    <button onClick={this.onSendMessageClick}>send message</button>
-                </div>
+                <div>{messageElement}</div>
+                <DialogReduxForm onSubmit={addNewMessage}/>
+                {/*<div>*/}
+                {/*    <textarea*/}
+                {/*        ref={newMessageBody}*/}
+                {/*        value={props.dialogsPage.newMessageText}*/}
+                {/*        onChange={onNewMessageChange}/>*/}
+                {/*</div>*/}
+                {/*<div>*/}
+                {/*    <button onClick={onSendMessageClick}>send message</button>*/}
+                {/*</div>*/}
             </div>
         </div>
-        )
-    }
+    )
 };
 
-// compose(
-//     connect(mapStateToProps,mapDispatchToProps),
-//     withAuthRedirect
-// )(Dialogs);
 
+const DialogForm = (props) => {
+    return <form onSubmit={props.handleSubmit}>
+        <Field component={'textarea'} name={'newMessageBody'} placeholder='Enter your message'/>
+        <div>
+            <button>send message</button>
+        </div>
+    </form>
+};
+
+const DialogReduxForm = reduxForm({form: 'dialogAddMessageForm'})(DialogForm);
 
 let AuthRedirectComponent = withAuthRedirect(Dialogs);
 
 let mapStateToProps = (state) => {
-    return{
+    return {
         dialogsPage: state.dialogsPage,
         isAuth: state.auth.isAuth
     }
 };
 
 let mapDispatchToProps = (dispatch) => {
-    return{
-        onNewMessageChange : (text) => {
-            dispatch(updateNewMessageTextActionCreator(text));
-        },
-        onSendMessageClick : () => {
-            dispatch(addMessageActionCreate())
+    return {
+        onSendMessageClick: (newMessageBody) => {
+            dispatch(addMessageActionCreate(newMessageBody))
         }
     }
 };
 
-const DialogsContainer = connect(mapStateToProps,mapDispatchToProps)(AuthRedirectComponent);
+const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);
 
 export default compose(
-    connect(mapStateToProps,mapDispatchToProps),
+    connect(mapStateToProps, mapDispatchToProps),
     withAuthRedirect
-)(Dialogs);;
+)(Dialogs);
+;
