@@ -8,6 +8,8 @@ import {connect} from "react-redux";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 import {Field, reduxForm} from "redux-form";
+import {maxLengthCreator, minLengthCreator, required} from "../../utils/validators/validators";
+import {Textarea} from "../common/FormsControls/FormsControls";
 
 const Dialogs = (props) => {
     let dialogElements = props.dialogsPage.dialogs.map(d => <DialogItem name={d.name} key={d.id} id={d.id}/>);
@@ -41,10 +43,15 @@ const Dialogs = (props) => {
     )
 };
 
+const maxLength = maxLengthCreator(50);
+const minLength = minLengthCreator(1);
 
 const DialogForm = (props) => {
     return <form onSubmit={props.handleSubmit}>
-        <Field component={'textarea'} name={'newMessageBody'} placeholder='Enter your message'/>
+        <Field component={Textarea}
+               name={'newMessageBody'}
+               placeholder='Enter your message'
+               validate={[required,maxLength,minLength]}/>
         <div>
             <button>send message</button>
         </div>
