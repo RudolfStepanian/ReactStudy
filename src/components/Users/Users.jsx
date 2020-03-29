@@ -2,9 +2,6 @@ import React from "react";
 import cl from "./Users.module.css";
 import userPhoto from '../../../src/asets/images/artist.avatar.png'
 import {NavLink} from "react-router-dom";
-import * as axios from "axios";
-import {userAPI as usersAPI} from "../../api/api";
-import {toggleIsFollowingProgress} from "../../Redux/users-reducer";
 
 
 let Users = (props) => {
@@ -23,7 +20,8 @@ let Users = (props) => {
                 <span>
                     <div>
                         <NavLink to={'/profile/' + u.id}>
-                        <img src={u.photos.large != null ? u.photos.large : userPhoto} className={cl.usersPhoto} alt=""/>
+                        <img src={u.photos.large != null ? u.photos.large : userPhoto}
+                             className={cl.usersPhoto} alt=""/>
                         </NavLink>
                     </div>
                     <div>
@@ -38,7 +36,8 @@ let Users = (props) => {
                 </span>
             <span>
                     <span>
-                        <div>{u.name}</div><div>{u.status}</div>
+                        <div>{u.name}</div>
+                        <div>{u.status}</div>
                     </span>
                 </span>
         </div>)}
